@@ -119,6 +119,8 @@ ggplot(dados, aes(x = NA_Sales, y = EU_Sales, color = Genre)) +
   geom_point() +
   labs(title = "Vendas na América do Norte vs Vendas na Europa")
 
+biricutico
+
 
 plot(dados_sem_na$Genre, dados_sem_na$Year)
 
