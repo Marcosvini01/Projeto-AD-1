@@ -80,3 +80,44 @@ plot(dados_sem_na$Genre, dados_sem_na$Year)
 
 #______________________________________________________________________________
 #Matheus
+summary(vgsales)
+sum(is.na(vgsales$Year))
+#missing_values <- sum(is.na(vgsales$Year))
+
+head(vgsales)
+str(vgsales)#descreve estrutura de dados
+#Na análise da estrutura verificamos que Year está como factor
+#Transformação da var Year em Int
+vgsales$Year <- as.integer(as.character(vgsales$Year))
+str(vgsales)
+
+
+plot(vgsales$Genre,vgsales$Year) #plota boxplot e dá pra ter ideia
+#que antes de 2000 tem muitos outliers
+
+
+#Analise univariada de variaveis qualitativas nominais
+#Freq absoluta
+fa<-table(vgsales$Genre)
+fa
+#Visualização de dados
+#Gráfico de freq. absoluta
+cores = rainbow(12)
+barplot(fa,las=2,main='Frequência absoluta', xlab='Gênero', ylab='Quantidade',
+        legend.text = FALSE, col = cores)
+#Gráfico de pizza
+fpct<-prop.table(fa)*100
+fpct
+pie(fpct, main='Frequência relativa percentual')
+
+#Análise de dados quantitativos
+#Mediana
+median(vgsales$Year)
+
+#Análise do boxplot
+boxplot(vgsales$Year)
+boxplot
+
+#Histograma
+hist(vgsales$Year)
+
