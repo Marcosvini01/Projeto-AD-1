@@ -1,123 +1,135 @@
-dados <- read.csv('vgsales.csv', header = TRUE, sep = ",", dec = ".", stringsAsFactors = TRUE, na.strings = "NA")
-
-head(dados)
-summary(dados)
-str(dados)
-
-dados_filtrados <- subset(dados, Year >= 2000 & Year <= 2016)
-
-valor_minimo <- min(dados_filtrados$Global_Sales)
-
-valor_maximo <- max(dados_filtrados$Global_Sales)
-
-media <- mean(dados_filtrados$Global_Sales)
-
-mediana <- median(dados_filtrados$Global_Sales)
-
-moda <- names(sort(-table(dados_filtrados$Global_Sales)))[1]
-
-# Remover valores NA das vendas globais
-dados_sem_na <- subset(dados_filtrados, Year != "NA")
-
-summary(dados_sem_na)
-
-str(dados_sem_na)
-
-sum(is.na(dados_sem_na$Year))
-
-
-
 library(ggplot2)
 
 #______________________________________________________________________________
+# Leitura dos dados ___________________________________________________________
+vgsales_raw <- read.csv('vgsales.csv', header = TRUE, sep = ",", dec = ".", 
+                  stringsAsFactors = TRUE, na.strings = "NA")
+#Transformação da var Year [FACTOR] em [Int] (Caso necessário)
+#vgsales_raw$Year <- as.integer(as.character(vgsales$Year)) 
 
+#______________________________________________________________________________
+# Exibição dos dados brutos ___________________________________________________
+head(vgsales_raw)
+summary(vgsales_raw)
+str(vgsales_raw)
+View(vgsales_raw)
+
+#______________________________________________________________________________
+# Observação de outliers para 'Year' antes de 2000 e depois de 2016 ___________
+
+year_hist <- hist(vgsales_raw$Year)
+year_boxplot <- boxplot(vgsales_raw$Year)
+
+#______________________________________________________________________________
+# Filtro de ano (2000 a 2016) para diminuição de outliers _____________________
+
+vgsales <- subset(vgsales_raw, Year >= 2000 & Year <= 2016)
+
+#______________________________________________________________________________
+# Verificação de colunas com dado vazio _______________________________________
+
+sum(is.na(vgsales$Rank))                                  # 0
+sum(is.na(vgsales$Name))                                  # 0
+sum(is.na(vgsales$Platform))                              # 0
+sum(is.na(vgsales$Year))                                  # 271
+sum(is.na(vgsales$Genre))                                 # 0
+sum(is.na(vgsales$Publisher))                             # 58
+sum(is.na(vgsales$NA_Sales))                              # 0
+sum(is.na(vgsales$EU_Sales))                              # 0
+sum(is.na(vgsales$JP_Sales))                              # 0
+sum(is.na(vgsales$Other_Sales))                           # 0
+sum(is.na(vgsales$Global_Sales))                          # 0
+
+#______________________________________________________________________________
+# Remoção de NA na coluna 'Year' ______________________________________________
+
+vgsales <- subset(vgsales, Year != "NA")
+sum(is.na(vgsales$Year))
+#______________________________________________________________________________
+
+
+
+
+#______________________________________________________________________________
+# Dados quantitativos _________________________________________________________
+## Global Sales: ______________________________________________________________
+
+gs_min <- min(vgsales$Global_Sales)
+gs_max <- max(vgsales$Global_Sales)
+gs_mean <- mean(vgsales$Global_Sales)
+gs_median <- median(vgsales$Global_Sales)
+gs_moda <- names(sort(-table(vgsales$Global_Sales)))[1]
+
+## Year: ______________________________________________________________________
+
+year_mean <- mean(vgsales$Year)
+year_median <- median(vgsales$Year)
+year_moda <- names(sort(-table(vgsales$Year)))[1]
+#______________________________________________________________________________
+
+
+
+
+#______________________________________________________________________________
+# Dados qualitativos nominais _________________________________________________
+## Genre: _____________________________________________________________________
+
+genre_fa <-table(vgsales$Genre)
+View(genre_fa)
+
+#Gráfico de freq. absoluta
+cores = rainbow(12)
+genre_fa_barplot <- barplot(genre_fa,las=2,main='Frequência absoluta', xlab='Gênero', 
+                            ylab='Quantidade',legend.text = FALSE, col = cores)
+View(genre_fa_barplot)
+
+#Gráfico de pizza
+genre_fpct <- prop.table(genre_fa) * 100
+pie(genre_fpct, main='Frequência relativa percentual')
+
+
+#______________________________________________________________________________
 # Gráfico de barras comparativo entre Plataforma e Vendas Globais
-ggplot(dados, aes(x = Platform, y = Global_Sales, fill = Platform)) +
+
+ggplot(vgsales_raw, aes(x = Platform, y = Global_Sales, fill = Platform)) +
   geom_bar(stat = "summary", fun = "sum") +
   labs(title = "Vendas Globais por Plataforma")
 
-ggplot(dados_sem_na, aes(x = Platform, y = Global_Sales, fill = Platform)) +
+ggplot(vgsales, aes(x = Platform, y = Global_Sales, fill = Platform)) +
   geom_bar(stat = "summary", fun = "sum") +
   labs(title = "Vendas Globais por Plataforma")
 
 #______________________________________________________________________________
-
 # Gráfico de barras comparativo entre Gênero e Vendas Globais
-ggplot(dados, aes(x = Genre, y = Global_Sales, fill = Genre)) +
+
+ggplot(vgsales_raw, aes(x = Genre, y = Global_Sales, fill = Genre)) +
   geom_bar(stat = "summary", fun = "sum") +
   labs(title = "Vendas Globais por Gênero")
 
 # Gráfico de barras comparativo entre Gênero e Vendas Globais
-ggplot(dados_sem_na, aes(x = Genre, y = Global_Sales, fill = Genre)) +
+ggplot(vgsales, aes(x = Genre, y = Global_Sales, fill = Genre)) +
   geom_bar(stat = "summary", fun = "sum") +
   labs(title = "Vendas Globais por Gênero")
 
 #______________________________________________________________________________
-
 # Gráfico de barras comparativo entre Ano e Vendas Globais
-ggplot(dados, aes(x = Year, y = Global_Sales, fill = as.factor(Year))) +
+
+ggplot(vgsales_raw, aes(x = Year, y = Global_Sales, fill = as.factor(Year))) +
   geom_bar(stat = "summary", fun = "sum") +
   labs(title = "Vendas Globais por Ano")
 
 
 # Gráfico de barras comparativo entre Editora e Vendas Globais
-ggplot(dados, aes(x = Publisher, y = Global_Sales, fill = Publisher)) +
+ggplot(vgsales_raw, aes(x = Publisher, y = Global_Sales, fill = Publisher)) +
   geom_bar(stat = "summary", fun = "sum") +
   labs(title = "Vendas Globais por Editora")
 
 
 # Gráfico de dispersão comparativo entre Vendas NA e Vendas EU
-ggplot(dados, aes(x = NA_Sales, y = EU_Sales, color = Genre)) +
+ggplot(vgsales_raw, aes(x = NA_Sales, y = EU_Sales, color = Genre)) +
   geom_point() +
   labs(title = "Vendas na América do Norte vs Vendas na Europa")
 
 
-plot(dados_sem_na$Genre, dados_sem_na$Year)
-
-
-
-
-
+plot(vgsales$Genre, vgsales$Year)
 #______________________________________________________________________________
-#Matheus
-summary(vgsales)
-sum(is.na(vgsales$Year))
-#missing_values <- sum(is.na(vgsales$Year))
-
-head(vgsales)
-str(vgsales)#descreve estrutura de dados
-#Na análise da estrutura verificamos que Year está como factor
-#Transformação da var Year em Int
-vgsales$Year <- as.integer(as.character(vgsales$Year))
-str(vgsales)
-
-
-plot(vgsales$Genre,vgsales$Year) #plota boxplot e dá pra ter ideia
-#que antes de 2000 tem muitos outliers
-
-
-#Analise univariada de variaveis qualitativas nominais
-#Freq absoluta
-fa<-table(vgsales$Genre)
-fa
-#Visualização de dados
-#Gráfico de freq. absoluta
-cores = rainbow(12)
-barplot(fa,las=2,main='Frequência absoluta', xlab='Gênero', ylab='Quantidade',
-        legend.text = FALSE, col = cores)
-#Gráfico de pizza
-fpct<-prop.table(fa)*100
-fpct
-pie(fpct, main='Frequência relativa percentual')
-
-#Análise de dados quantitativos
-#Mediana
-median(vgsales$Year)
-
-#Análise do boxplot
-boxplot(vgsales$Year)
-boxplot
-
-#Histograma
-hist(vgsales$Year)
-
