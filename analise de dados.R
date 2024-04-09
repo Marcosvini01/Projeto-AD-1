@@ -5,7 +5,7 @@ library(ggplot2)
 vgsales_raw <- read.csv('vgsales.csv', header = TRUE, sep = ",", dec = ".", 
                   stringsAsFactors = TRUE, na.strings = "NA")
 #Transformação da var Year [FACTOR] em [Int] (Caso necessário)
-#vgsales_raw$Year <- as.integer(as.character(vgsales$Year)) 
+vgsales_raw$Year <- as.integer(as.character(vgsales_raw$Year)) 
 
 #______________________________________________________________________________
 # Exibição dos dados brutos ___________________________________________________
