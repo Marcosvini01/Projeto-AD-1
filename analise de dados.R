@@ -43,8 +43,17 @@ sum(is.na(vgsales$Global_Sales))                          # 0
 #______________________________________________________________________________
 # Remoção de NA na coluna 'Year' ______________________________________________
 
-vgsales <- subset(vgsales, Year != "NA")
+vgsales <- subset(vgsales, Year != "NA" & Publisher != "NA")
 sum(is.na(vgsales$Year))
+sum(is.na(vgsales$Publisher))
+#______________________________________________________________________________
+# Re-ordenando rank de vendas _________________________________________________
+
+vgsales_size <- nrow(vgsales)
+for (idx in 1:vgsales_size){
+  vgsales$Rank[idx] <- idx
+}
+
 #______________________________________________________________________________
 
 
@@ -133,3 +142,10 @@ ggplot(vgsales_raw, aes(x = NA_Sales, y = EU_Sales, color = Genre)) +
 
 plot(vgsales$Genre, vgsales$Year)
 #______________________________________________________________________________
+
+# 1. Associação de Global_Sales com as outras variaveis numéricas (NA,JP,EU,Other,Year)
+# 2. Gráficos: Vendas Globais por Ano, Vendas por Plataforma, Vendas por Publisher, Maiores 1000 Ranks por Publisher,
+#               Menores 1000 Ranks por Publisher, Vendas totais por Região, Vendas por Genero, Jogos mais vendidos, 
+#
+# 3. Escrever
+
