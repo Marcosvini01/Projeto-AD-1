@@ -44,13 +44,13 @@ sum(is.na(vgsales$Other_Sales))                           # 0
 sum(is.na(vgsales$Global_Sales))                          # 0
 
 #______________________________________________________________________________
-# Remoção de NA na coluna 'Year' ______________________________________________
+# Remoção de NA na coluna 'Year' e 'Publisher' ________________________________
 
 vgsales <- subset(vgsales, Year != "NA" & Publisher != "NA")
 sum(is.na(vgsales$Year))
 sum(is.na(vgsales$Publisher))
 #______________________________________________________________________________
-# Re-ordenando rank de vendas _________________________________________________
+# Re-ordenando ranking de vendas _________________________________________________
 
 vgsales_size <- nrow(vgsales)
 for (idx in 1:vgsales_size){
