@@ -4,8 +4,6 @@ library(ggplot2)
 # Leitura dos dados ___________________________________________________________
 vgsales_raw <- read.csv('vgsales.csv', header = TRUE, sep = ",", dec = ".", 
                   stringsAsFactors = TRUE, na.strings = "NA")
-#Transformação da var Year [FACTOR] em [Int] (Caso necessário)
-vgsales_raw$Year <- as.integer(as.character(vgsales_raw$Year)) 
 
 #______________________________________________________________________________
 # Exibição dos dados brutos ___________________________________________________
@@ -13,6 +11,10 @@ head(vgsales_raw)
 summary(vgsales_raw)
 str(vgsales_raw)
 View(vgsales_raw)
+
+#Transformação da var Year [FACTOR] em [Int]
+vgsales_raw$Year <- as.integer(as.character(vgsales_raw$Year)) 
+str(vgsales_raw)
 
 #______________________________________________________________________________
 # Observação de outliers para 'Year' antes de 2000 e depois de 2016 ___________
