@@ -19,9 +19,8 @@ str(vgsales_raw)
 #______________________________________________________________________________
 # Observação de outliers para 'Year' antes de 2000 e depois de 2016 ___________
 
-year_hist <- hist(vgsales_raw$Year)
-year_boxplot <- boxplot(vgsales_raw$Year)
-plot(vgsales_raw$Genre, vgsales_raw$Year)
+ggplot(vgsales_raw, aes(x=Genre, y=Year))+geom_boxplot()+
+labs(title="Boxplot de Genre e Year", x="Genre", y="Year")
 
 #______________________________________________________________________________
 # Filtro de ano (2000 a 2016) para diminuição de outliers _____________________
