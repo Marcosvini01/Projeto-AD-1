@@ -21,6 +21,7 @@ str(vgsales_raw)
 
 year_hist <- hist(vgsales_raw$Year)
 year_boxplot <- boxplot(vgsales_raw$Year)
+plot(vgsales_raw$Genre, vgsales_raw$Year)
 
 #______________________________________________________________________________
 # Filtro de ano (2000 a 2016) para diminuição de outliers _____________________
@@ -142,7 +143,6 @@ ggplot(vgsales_raw, aes(x = NA_Sales, y = EU_Sales, color = Genre)) +
   labs(title = "Vendas na América do Norte vs Vendas na Europa")
 
 
-plot(vgsales$Genre, vgsales$Year)
 #______________________________________________________________________________
 
 # 1. Associação de Global_Sales com as outras variaveis numéricas (NA,JP,EU,Other,Year)
