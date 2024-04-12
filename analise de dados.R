@@ -82,7 +82,10 @@ year_mean <- mean(vgsales$Year)
 year_median <- median(vgsales$Year)
 year_moda <- names(sort(-table(vgsales$Year)))[1]
 #______________________________________________________________________________
-
+# Gráfico de dispersão comparativo entre Vendas NA e Vendas EU
+ggplot(vgsales, aes(x = NA_Sales, y = EU_Sales, color = Genre)) +
+  geom_point() +
+  labs(title = "Vendas na América do Norte vs Vendas na Europa")
 
 
 
@@ -107,27 +110,23 @@ pie(genre_fpct, main='Frequência relativa percentual')
 #______________________________________________________________________________
 # Gráfico de barras comparativo entre Plataforma e Vendas Globais
 
-ggplot(vgsales_raw, aes(x = Platform, y = Global_Sales, fill = Platform)) +
-  geom_bar(stat = "summary", fun = "sum") +
-  labs(title = "Vendas Globais por Plataforma")
-
 ggplot(vgsales, aes(x = Platform, y = Global_Sales, fill = Platform)) +
   geom_bar(stat = "summary", fun = "sum") +
   labs(title = "Vendas Globais por Plataforma")
 
 #______________________________________________________________________________
 # Gráfico de barras comparativo entre Gênero e Vendas Globais
-
-ggplot(vgsales_raw, aes(x = Genre, y = Global_Sales, fill = Genre)) +
-  geom_bar(stat = "summary", fun = "sum") +
-  labs(title = "Vendas Globais por Gênero")
-
-# Gráfico de barras comparativo entre Gênero e Vendas Globais
 ggplot(vgsales, aes(x = Genre, y = Global_Sales, fill = Genre)) +
   geom_bar(stat = "summary", fun = "sum") +
   labs(title = "Vendas Globais por Gênero")
 
 #______________________________________________________________________________
+# Gráfico de barras comparativo entre Editora e Vendas Globais
+ggplot(vgsales_raw, aes(x = Publisher, y = Global_Sales, fill = Publisher)) +
+  geom_bar(stat = "summary", fun = "sum") +
+  labs(title = "Vendas Globais por Editora")
+
+
 # Gráfico de barras comparativo entre Ano e Vendas Globais
 
 ggplot(vgsales_raw, aes(x = Year, y = Global_Sales, fill = as.factor(Year))) +
@@ -135,16 +134,7 @@ ggplot(vgsales_raw, aes(x = Year, y = Global_Sales, fill = as.factor(Year))) +
   labs(title = "Vendas Globais por Ano")
 
 
-# Gráfico de barras comparativo entre Editora e Vendas Globais
-ggplot(vgsales_raw, aes(x = Publisher, y = Global_Sales, fill = Publisher)) +
-  geom_bar(stat = "summary", fun = "sum") +
-  labs(title = "Vendas Globais por Editora")
 
-
-# Gráfico de dispersão comparativo entre Vendas NA e Vendas EU
-ggplot(vgsales_raw, aes(x = NA_Sales, y = EU_Sales, color = Genre)) +
-  geom_point() +
-  labs(title = "Vendas na América do Norte vs Vendas na Europa")
 
 
 #______________________________________________________________________________
