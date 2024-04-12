@@ -33,7 +33,7 @@ sum(is.na(vgsales$Name))                                  # 0
 sum(is.na(vgsales$Platform))                              # 0
 sum(is.na(vgsales$Year))                                  # 271
 sum(is.na(vgsales$Genre))                                 # 0
-sum(is.na(vgsales$Publisher))                             # 58
+sum(is.na(vgsales$Publisher))                             # 36
 sum(is.na(vgsales$NA_Sales))                              # 0
 sum(is.na(vgsales$EU_Sales))                              # 0
 sum(is.na(vgsales$JP_Sales))                              # 0
@@ -144,8 +144,43 @@ plot(vgsales$Genre, vgsales$Year)
 #______________________________________________________________________________
 
 # 1. Associação de Global_Sales com as outras variaveis numéricas (NA,JP,EU,Other,Year)
-# 2. Gráficos: Vendas Globais por Ano, Vendas por Plataforma, Vendas por Publisher, Maiores 1000 Ranks por Publisher,
+# 2. Gráficos:, Maiores 1000 Ranks por Publisher,
 #               Menores 1000 Ranks por Publisher, Vendas totais por Região, Vendas por Genero, Jogos mais vendidos, 
 #
 # 3. Escrever
+
+#______________________________________________________________________________
+# Gráfico de Global_Sales x Year:
+
+sales_by_year <- aggregate(Global_Sales ~ Year, data = vgsales, sum)
+ggplot(sales_by_year, aes(x = Year, y = Global_Sales,label = Global_Sales)) +
+  geom_bar(stat = "identity", color="green", fill="white") +
+  geom_text(vjust=2, size=4) + 
+  labs(x="Ano", y="Vendas Globais (em milhões de unidades)", title="Vendas Globais de video-jogos por Ano") + 
+  theme_bw()
+
+#______________________________________________________________________________
+# Gráfico de Global_Sales x Platform:
+
+sales_by_platform <- aggregate(Global_Sales ~ Platform, data = vgsales, sum)
+ggplot(sales_by_platform, aes(x = Platform, y = Global_Sales,label = Global_Sales)) +
+  geom_bar(stat = "identity", aes(fill = Platform), color="black") +
+  geom_text(vjust=2, size=4) + 
+  labs(x="Plataforma", y="Vendas Globais (em milhões de unidades)", title="Vendas Globais de video-jogos por Plataforma") + 
+  theme_bw()
+
+#______________________________________________________________________________
+# Gráfico de Global_Sales x Publisher:
+# Obtendo apenas para o Top 10 publicadoras pois ao todo temos mais de 400 publishers ao longo do dataset, o que para plotar ficaria com
+# uma visualização ruim
+sales_by_publisher <- aggregate(Global_Sales ~ Publisher, data = vgsales, sum)
+sales_by_publisher <- sales_by_publisher[order(-sales_by_publisher$Global_Sales), ]
+sales_by_publisher_top_20_publishers <- head(sales_by_publisher, 10)
+ggplot(sales_by_publisher_top_20_publishers, aes(x = Publisher, y = Global_Sales,label = Global_Sales)) +
+  geom_bar(stat = "identity", color="green", fill="white") +
+  geom_text(vjust=2, size=4) + 
+  labs(x="Publicadora", y="Vendas Globais (em milhões de unidades)", title="Vendas Globais de video-jogos por Publicadora") + 
+  theme_bw()
+
+
 
