@@ -126,7 +126,7 @@ ggplot(vgsales, aes(x = Genre, y = Global_Sales, fill = Genre)) +
 
 #______________________________________________________________________________
 # Gráfico de barras comparativo entre Editora e Vendas Globais
-ggplot(vgsales_raw, aes(x = Publisher, y = Global_Sales, fill = Publisher)) +
+ggplot(vgsales, aes(x = Publisher, y = Global_Sales, fill = Publisher)) +
   geom_bar(stat = "summary", fun = "sum") +
   labs(title = "Vendas Globais por Editora")
 
