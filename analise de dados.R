@@ -87,7 +87,11 @@ ggplot(vgsales, aes(x = NA_Sales, y = EU_Sales, color = Genre)) +
   geom_point() +
   labs(title = "Vendas na América do Norte vs Vendas na Europa")
 
+# Gráfico de barras comparativo entre Ano e Vendas Globais
 
+ggplot(vgsales, aes(x = Year, y = Global_Sales, fill = as.factor(Year))) +
+  geom_bar(stat = "summary", fun = "sum") +
+  labs(title = "Vendas Globais por Ano")
 
 #______________________________________________________________________________
 # Dados qualitativos nominais _________________________________________________
@@ -127,11 +131,7 @@ ggplot(vgsales_raw, aes(x = Publisher, y = Global_Sales, fill = Publisher)) +
   labs(title = "Vendas Globais por Editora")
 
 
-# Gráfico de barras comparativo entre Ano e Vendas Globais
 
-ggplot(vgsales_raw, aes(x = Year, y = Global_Sales, fill = as.factor(Year))) +
-  geom_bar(stat = "summary", fun = "sum") +
-  labs(title = "Vendas Globais por Ano")
 
 
 
