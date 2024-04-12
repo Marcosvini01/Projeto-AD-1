@@ -55,6 +55,11 @@ vgsales_size <- nrow(vgsales)
 for (idx in 1:vgsales_size){
   vgsales$Rank[idx] <- idx
 }
+#______________________________________________________________________________
+# Visualizando o boxplot dos dados após limpeza _______________________________
+
+ggplot(vgsales, aes(x=Genre, y=Year))+geom_boxplot()+
+  labs(title="Boxplot de Genre e Year", x="Genre", y="Year")
 
 #______________________________________________________________________________
 
