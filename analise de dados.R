@@ -216,13 +216,15 @@ pie(genre_fpct, main='Frequência relativa percentual')
 
 ggplot(vgsales, aes(x = Platform, y = Global_Sales, fill = Platform)) +
   geom_bar(stat = "summary", fun = "sum") +
-  labs(title = "Vendas Globais por Plataforma")
+  labs(title = "Vendas Globais por Plataforma")+
+  guides(fill = FALSE)
 
 #______________________________________________________________________________
 # Gráfico de barras comparativo entre Gênero e Vendas Globais
 ggplot(vgsales, aes(x = Genre, y = Global_Sales, fill = Genre)) +
   geom_bar(stat = "summary", fun = "sum") +
-  labs(title = "Vendas Globais por Gênero")
+  labs(title = "Vendas Globais por Gênero")+
+  guides(fill = FALSE)
 
 #______________________________________________________________________________
 # Gráfico de Global_Sales x Publisher:
