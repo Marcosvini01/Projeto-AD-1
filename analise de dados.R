@@ -181,11 +181,11 @@ grid()
 #Gráfico de Linhas/Séries Temporais - Vendas Globais por Ano
 ggplot(vgsales, aes(x = Year, y = Global_Sales)) + geom_line() + labs(x = "Year", y = "Global_Sales", title = "Vendas Globais por Ano")
 
-
-# Gráfico de dispersão comparativo entre Vendas NA e Vendas EU
-ggplot(vgsales, aes(x = NA_Sales, y = EU_Sales, color = Genre)) +
-  geom_point() +
-  labs(title = "Vendas na América do Norte vs Vendas na Europa")
+#Gráfico de dispersão comparativo entre regiões e global
+plot(vgsales$NA_Sales,vgsales$Global_Sales,xlab = "NA_Sales", ylab = "Global_Sales", main="Vendas NA e Global", col="blue")
+plot(vgsales$EU_Sales,vgsales$Global_Sales,xlab = "EU_Sales", ylab = "Global_Sales", main="Vendas EU e Global", col="purple")
+plot(vgsales$JP_Sales,vgsales$Global_Sales,xlab = "JP_Sales", ylab = "Global_Sales", main="Vendas JP e Global", col="red")
+plot(vgsales$Other_Sales,vgsales$Global_Sales,xlab = "Other_Sales", ylab = "Global_Sales", main="Vendas Other e Global", col="orange")
 
 #______________________________________________________________________________
 # Dados qualitativos nominais _________________________________________________
