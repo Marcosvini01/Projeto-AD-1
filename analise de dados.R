@@ -178,15 +178,14 @@ boxplot(vgsales$NA_Sales, vgsales$EU_Sales, vgsales$JP_Sales, vgsales$Other_Sale
 axis(1, at=1:5, labels=c("NA", "EU", "JP", "Other", "Global"))
 grid()
 #______________________________________________________________________________
+#Gráfico de Linhas/Séries Temporais - Vendas Globais por Ano
+ggplot(vgsales, aes(x = Year, y = Global_Sales)) + geom_line() + labs(x = "Year", y = "Global_Sales", title = "Vendas Globais por Ano")
+
+
 # Gráfico de dispersão comparativo entre Vendas NA e Vendas EU
 ggplot(vgsales, aes(x = NA_Sales, y = EU_Sales, color = Genre)) +
   geom_point() +
   labs(title = "Vendas na América do Norte vs Vendas na Europa")
-
-# Gráfico de barras comparativo entre Ano e Vendas Globais
-ggplot(vgsales, aes(x = Year, y = Global_Sales, fill = as.factor(Year))) +
-  geom_bar(stat = "summary", fun = "sum") +
-  labs(title = "Vendas Globais por Ano")
 
 #______________________________________________________________________________
 # Dados qualitativos nominais _________________________________________________
