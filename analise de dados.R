@@ -194,22 +194,12 @@ cor(vgsales$JP_Sales,vgsales$Global_Sales)
 cor(vgsales$Other_Sales,vgsales$Global_Sales)
 
 #______________________________________________________________________________
-# Dados qualitativos nominais _________________________________________________
-## Genre: _____________________________________________________________________
+# Dados qualitativos___________________________________________________________
+## Gráfico de pizza____________________________________________________________
 
 genre_fa <-table(vgsales$Genre)
-View(genre_fa)
-
-#Gráfico de freq. absoluta
-cores = rainbow(12)
-genre_fa_barplot <- barplot(genre_fa,las=2,main='Frequência absoluta', xlab='Gênero', 
-                            ylab='Quantidade',legend.text = FALSE, col = cores)
-View(genre_fa_barplot)
-
-#Gráfico de pizza
 genre_fpct <- prop.table(genre_fa) * 100
 pie(genre_fpct, main='Frequência relativa percentual')
-
 
 #______________________________________________________________________________
 # Gráfico de Global_Sales x Platform:
