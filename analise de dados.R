@@ -212,19 +212,21 @@ pie(genre_fpct, main='Frequência relativa percentual')
 
 
 #______________________________________________________________________________
-# Gráfico de barras comparativo entre Plataforma e Vendas Globais
+# Gráfico de Global_Sales x Platform:
 
-ggplot(vgsales, aes(x = Platform, y = Global_Sales, fill = Platform)) +
-  geom_bar(stat = "summary", fun = "sum") +
-  labs(title = "Vendas Globais por Plataforma")+
-  guides(fill = FALSE)
+sales_by_platform <- aggregate(Global_Sales ~ Platform, data = vgsales, sum)
+ggplot(sales_by_platform, aes(x = Platform, y = Global_Sales,label = Global_Sales)) +
+  geom_bar(stat = "identity", aes(fill = Platform), color="black") +
+  geom_text(vjust=2, size=4) + 
+  labs(x="Plataforma", y="Vendas Globais (em milhões de unidades)", title="Vendas Globais de video-jogos por Plataforma") + 
+  theme_bw()+guides(fill = FALSE)
 
 #______________________________________________________________________________
-# Gráfico de barras comparativo entre Gênero e Vendas Globais
-ggplot(vgsales, aes(x = Genre, y = Global_Sales, fill = Genre)) +
-  geom_bar(stat = "summary", fun = "sum") +
-  labs(title = "Vendas Globais por Gênero")+
-  guides(fill = FALSE)
+# Gráfico de vendas totais por Gênero:
+ggplot(vgsales, aes(x = reorder(Genre, - Global_Sales), y = Global_Sales)) +
+  geom_bar(stat = "identity", color="green", fill="white") +
+  labs(x="Gênero", y="Vendas totais", title="Vendas totais por Gênero") + 
+  theme_bw()
 
 #______________________________________________________________________________
 # Gráfico de Global_Sales x Publisher:
@@ -257,26 +259,9 @@ ggplot(df_Rank1000, aes(x = Publisher, y = Count,label = Count)) +
   theme_bw()
 
 #______________________________________________________________________________
-# Gráfico de vendas totais por Gênero:
-
-ggplot(vgsales, aes(x = reorder(Genre, - Global_Sales), y = Global_Sales)) +
-  geom_bar(stat = "identity", color="green", fill="white") +
-  labs(x="Gênero", y="Vendas totais", title="Vendas totais por Gênero") + 
-  theme_bw()
-#______________________________________________________________________________
 
 # 1. Associação de Global_Sales com as outras variaveis numéricas (NA,JP,EU,Other,Year)
 # 2. Gráficos: Vendas totais por Região, Vendas por Genero 
 # 3. Escrever
-
-#______________________________________________________________________________
-# Gráfico de Global_Sales x Platform:
-
-sales_by_platform <- aggregate(Global_Sales ~ Platform, data = vgsales, sum)
-ggplot(sales_by_platform, aes(x = Platform, y = Global_Sales,label = Global_Sales)) +
-  geom_bar(stat = "identity", aes(fill = Platform), color="black") +
-  geom_text(vjust=2, size=4) + 
-  labs(x="Plataforma", y="Vendas Globais (em milhões de unidades)", title="Vendas Globais de video-jogos por Plataforma") + 
-  theme_bw()
 
 #______________________________________________________________________________
