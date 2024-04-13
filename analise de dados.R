@@ -168,6 +168,16 @@ quantit_stats <- data.frame(Mínimo = c(year_min, gs_min, na_sales_min, eu_sales
 rownames(quantit_stats) <- c("Ano", "Global_Sales", "NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales")
 View(quantit_stats)
 #______________________________________________________________________________
+#Visualização de dados quantitativos pelo Boxplot
+#Boxplot-Year
+boxplot(vgsales$Year,horizontal=TRUE)
+grid()
+
+#Boxplot-Vendas Regionais e Globais
+boxplot(vgsales$NA_Sales, vgsales$EU_Sales, vgsales$JP_Sales, vgsales$Other_Sales, vgsales$Global_Sales, xaxt = "n", outline=FALSE)
+axis(1, at=1:5, labels=c("NA", "EU", "JP", "Other", "Global"))
+grid()
+#______________________________________________________________________________
 # Gráfico de dispersão comparativo entre Vendas NA e Vendas EU
 ggplot(vgsales, aes(x = NA_Sales, y = EU_Sales, color = Genre)) +
   geom_point() +
