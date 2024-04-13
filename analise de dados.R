@@ -187,6 +187,12 @@ plot(vgsales$EU_Sales,vgsales$Global_Sales,xlab = "EU_Sales", ylab = "Global_Sal
 plot(vgsales$JP_Sales,vgsales$Global_Sales,xlab = "JP_Sales", ylab = "Global_Sales", main="Vendas JP e Global", col="red")
 plot(vgsales$Other_Sales,vgsales$Global_Sales,xlab = "Other_Sales", ylab = "Global_Sales", main="Vendas Other e Global", col="orange")
 
+#Cálculo do coeficiente de Pearson
+cor(vgsales$NA_Sales,vgsales$Global_Sales)
+cor(vgsales$EU_Sales,vgsales$Global_Sales)
+cor(vgsales$JP_Sales,vgsales$Global_Sales)
+cor(vgsales$Other_Sales,vgsales$Global_Sales)
+
 #______________________________________________________________________________
 # Dados qualitativos nominais _________________________________________________
 ## Genre: _____________________________________________________________________
