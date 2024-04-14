@@ -181,6 +181,10 @@ grid()
 #Gráfico de Linhas/Séries Temporais - Vendas Globais por Ano
 ggplot(vgsales, aes(x = Year, y = Global_Sales)) + geom_line() + labs(x = "Year", y = "Global_Sales", title = "Vendas Globais por Ano")
 
+#Gráfico de Linhas para Visualizar Vendas Globais ao Longo dos Anos por Gênero
+ggplot(vgsales, aes(x = Year, y = Global_Sales, color = Genre)) + geom_line() + 
+  labs(x = 'Ano', y = 'Vendas Globais', title = 'Vendas Globais ao Longo dos Anos por Gênero')
+
 #Gráfico de dispersão comparativo entre regiões e global
 plot(vgsales$NA_Sales,vgsales$Global_Sales,xlab = "NA_Sales", ylab = "Global_Sales", main="Vendas NA e Global", col="blue")
 plot(vgsales$EU_Sales,vgsales$Global_Sales,xlab = "EU_Sales", ylab = "Global_Sales", main="Vendas EU e Global", col="purple")
@@ -192,6 +196,15 @@ cor(vgsales$NA_Sales,vgsales$Global_Sales)
 cor(vgsales$EU_Sales,vgsales$Global_Sales)
 cor(vgsales$JP_Sales,vgsales$Global_Sales)
 cor(vgsales$Other_Sales,vgsales$Global_Sales)
+
+#Gráfico de Dispersão para Comparar Vendas Globais com Vendas em outras Regiões
+plot(vgsales$NA_Sales, vgsales$Global_Sales, xlab='Vendas Regionais', ylab='Vendas Globais', 
+     main='Vendas Regionais vs. Vendas Globais', col='blue')
+points(vgsales$EU_Sales, vgsales$Global_Sales, col='purple')
+points(vgsales$JP_Sales, vgsales$Global_Sales, col='red')
+points(vgsales$Other_Sales, vgsales$Global_Sales, col='orange')
+legend('bottomright', legend=c('América do Norte', 'Europa', 'Japão', 'Outras Regiões'), 
+       col=c('blue', 'purple', 'red', 'orange'), pch=1)
 
 #______________________________________________________________________________
 # Dados qualitativos___________________________________________________________
@@ -210,6 +223,13 @@ ggplot(sales_by_platform, aes(x = Platform, y = Global_Sales,label = Global_Sale
   geom_text(vjust=2, size=4) + 
   labs(x="Plataforma", y="Vendas Globais (em milhões de unidades)", title="Vendas Globais de video-jogos por Plataforma") + 
   theme_bw()+guides(fill = FALSE)
+
+#______________________________________________________________________________
+#Gráfico de Área para Visualizar Evolução das Vendas por Plataforma
+ggplot(vgsales, aes(x = Year, y = Global_Sales, fill = Platform)) +
+  geom_area() +
+  labs(x = "Ano", y = "Vendas Globais", title = "Evolução das Vendas por Plataforma") +
+  theme_minimal()
 
 #______________________________________________________________________________
 # Gráfico de vendas totais por Gênero:
@@ -305,25 +325,10 @@ plot(vgsales$EU_Sales, vgsales$Global_Sales, xlab='Vendas na Europa', ylab='Vend
 plot(vgsales$JP_Sales, vgsales$Global_Sales, xlab='Vendas no Japão', ylab='Vendas Globais', 
      main='Vendas no Japão vs. Vendas Globais', col='red')
 
-
-plot(vgsales$NA_Sales, vgsales$Global_Sales, xlab='Vendas na América do Norte', ylab='Vendas Globais', 
-     main='Vendas na América do Norte vs. Vendas Globais', col='blue')
-#Gráfico de Dispersão para Comparar Vendas Globais com Vendas em outras Regiões
-points(vgsales$EU_Sales, vgsales$Global_Sales, col='red')
-points(vgsales$JP_Sales, vgsales$Global_Sales, col='green')
-points(vgsales$Other_Sales, vgsales$Global_Sales, col='purple')
-
-legend('topright', legend=c('América do Norte', 'Europa', 'Japão', 'Outras Regiões'), 
-       col=c('blue', 'red', 'green', 'purple'), pch=1)
-
 #______________________________________________________________________________
 #Neste gráfico, as linhas representam as vendas globais de jogos ao longo dos anos para 
 #cada gênero de jogo. Cada linha representa um gênero, permitindo visualizar como as vendas 
 #desse gênero evoluíram ao longo do tempo.
-
-#Gráfico de Linhas para Visualizar Vendas Globais ao Longo dos Anos por Gênero
-ggplot(vgsales, aes(x = Year, y = Global_Sales, color = Genre)) + geom_line() + 
-  labs(x = 'Ano', y = 'Vendas Globais', title = 'Vendas Globais ao Longo dos Anos por Gênero')
 
 #______________________________________________________________________________
 #Gráfico de Dispersão para Comparar Vendas na Europa e América do Norte
@@ -335,13 +340,6 @@ plot(vgsales$EU_Sales, vgsales$NA_Sales, xlab = "Vendas na Europa", ylab = "Vend
 ggplot(vgsales, aes(x = Genre, y = Global_Sales)) +
   geom_boxplot(fill = "green") +
   labs(x = "Gênero", y = "Vendas Globais", title = "Distribuição de Vendas por Gênero") +
-  theme_minimal()
-
-#______________________________________________________________________________
-#Gráfico de Área para Visualizar Evolução das Vendas por Plataforma
-ggplot(vgsales, aes(x = Year, y = Global_Sales, fill = Platform)) +
-  geom_area() +
-  labs(x = "Ano", y = "Vendas Globais", title = "Evolução das Vendas por Plataforma") +
   theme_minimal()
 
 
